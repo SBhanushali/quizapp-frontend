@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/core";
+import { Route, NavLink, useParams } from "react-router-dom";
 import Module from "./Module";
 
 const ModuleNavigation = () => {
@@ -16,10 +17,18 @@ const ModuleNavigation = () => {
   }, []);
   console.log(modules);
   const moduleMap = modules.map((module) => {
-    return <Module key={module._id} moduleName={module.moduleName} />;
+    return (
+      <NavLink
+        key={module._id}
+        to={`/${module.moduleName}`}
+        activeStyle={{ color: "red", fontWeight: "bold" }}
+      >
+        <Module moduleName={module.moduleName} />
+      </NavLink>
+    );
   });
   return (
-    <Box height="100vh" px={5} overflowY="auto">
+    <Box height="92vh" pt="8vh" px={5} overflowY="auto" borderRightWidth="1px">
       {moduleMap}
     </Box>
   );
