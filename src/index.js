@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { theme, ThemeProvider, CSSReset } from "@chakra-ui/core";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CSSReset />
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   </ThemeProvider>,
   document.getElementById("root")
