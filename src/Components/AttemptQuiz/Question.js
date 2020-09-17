@@ -127,14 +127,18 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
           ""
         )}
       </Box>
-      <Button
-        variantColor="teal"
-        variant="outline"
-        onClick={() => submitHandler()}
-        my={5}
-      >
-        Submit
-      </Button>
+      {explanation ? (
+        ""
+      ) : (
+        <Button
+          variantColor="teal"
+          variant="outline"
+          onClick={() => submitHandler()}
+          my={5}
+        >
+          Submit
+        </Button>
+      )}
 
       <Box>
         {explanation ? (
