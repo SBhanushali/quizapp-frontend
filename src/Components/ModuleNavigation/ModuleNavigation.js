@@ -28,7 +28,14 @@ const ModuleNavigation = () => {
     );
   });
   return (
-    <Box height="92vh" pt="8vh" px={5} overflowY="auto" borderRightWidth="1px">
+    <Box
+      height="92vh"
+      pt="8vh"
+      px={5}
+      overflowY="auto"
+      borderRightWidth="1px"
+      display={["none", "none", "block", "block"]}
+    >
       {moduleMap}
     </Box>
   );
