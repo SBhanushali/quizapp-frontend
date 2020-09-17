@@ -17,6 +17,7 @@ import QuestionInput from "./QuestionInput";
 const CreateQuiz = () => {
   const [moduleName, setModuleName] = useState("");
   const [questions, setQuestions] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   const toast = useToast();
 
   const addQuestion = (e) => {
@@ -91,12 +92,6 @@ const CreateQuiz = () => {
     e.preventDefault();
     let questionsClone = [...questions.slice(0, i), ...questions.slice(i + 1)];
     setQuestions(questionsClone);
-  };
-
-  const submitHandler = () => {
-    if (validateQuiz()) {
-      console.log("success");
-    }
   };
 
   const validateQuiz = () => {
@@ -221,6 +216,56 @@ const CreateQuiz = () => {
     return true;
   };
 
+  const submitHandler = () => {
+    if (validateQuiz()) {
+      setLoading(true);
+      fetch("http://localhost:8080/api/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          moduleName: moduleName,
+          moduleQuestions: questions,
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.success) {
+            setLoading(false);
+            toast({
+              position: "top-right",
+              title: "Create",
+              description: "Quiz for this module created",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          } else if (!result.success) {
+            setLoading(false);
+            toast({
+              position: "top-right",
+              title: "Error",
+              description: "Make sure module name is unique",
+              status: "error",
+              duration: 2000,
+              isClosable: true,
+            });
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          toast({
+            position: "top-right",
+            title: "Error",
+            description: "Make sure module name is unique",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        });
+    }
+  };
   return (
     <>
       <Box pt="12vh" px={10}>
@@ -371,12 +416,14 @@ const CreateQuiz = () => {
       </Box>
       <Flex justifyContent="center">
         <Button
-          loadingText="Submitting"
+          isLoading={isLoading}
+          loadingText="Creating"
           variantColor="teal"
           variant="outline"
           onClick={submitHandler}
+          mt={3}
         >
-          Submit
+          Create Quiz
         </Button>
       </Flex>
     </>
