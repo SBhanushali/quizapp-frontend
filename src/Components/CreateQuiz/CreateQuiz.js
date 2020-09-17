@@ -1,0 +1,248 @@
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Text,
+  RadioGroup,
+  Radio,
+  Flex,
+  Icon,
+  Input,
+  Tooltip,
+  useToast,
+} from "@chakra-ui/core";
+import CheckboxOption from "./CheckboxOption";
+import QuestionInput from "./QuestionInput";
+
+const CreateQuiz = () => {
+  const [moduleName, setModuleName] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const toast = useToast();
+
+  const addQuestion = (e) => {
+    e.preventDefault();
+    let questionClone = questions.concat([
+      {
+        question: "",
+        inputType: "radio",
+        explanation: "",
+        options: [],
+      },
+    ]);
+    setQuestions(questionClone);
+  };
+
+  const handleQuestionText = (i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[i].question = e.target.value;
+    setQuestions(questionClone);
+  };
+
+  const handleExplanationText = (i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[i].explanation = e.target.value;
+    setQuestions(questionClone);
+  };
+
+  const handleInputType = (i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[i].inputType = e.target.value;
+    questionClone[i].options = [];
+    if (e.target.value === "text") {
+      questionClone[i].options.push({
+        isCorrect: true,
+      });
+    }
+    setQuestions(questionClone);
+  };
+
+  const addOptions = (i) => (e) => {
+    e.preventDefault();
+    let questionClone = [...questions];
+    if (questionClone[i].inputType === "text") return;
+    questionClone[i].options.push({
+      value: "",
+      isCorrect: false,
+    });
+
+    setQuestions(questionClone);
+  };
+
+  const handleOptionText = (index, i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[index].options[i].value = e.target.value;
+    setQuestions(questionClone);
+  };
+  const handleRadioOptionInput = (index, i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[index].options.map((option) => (option.isCorrect = false));
+    questionClone[index].options[i].isCorrect = !questionClone[index].options[i]
+      .isCorrect;
+    setQuestions(questionClone);
+  };
+  const handleCheckboxOptionInput = (index, i) => (e) => {
+    let questionClone = [...questions];
+    questionClone[index].options[i].isCorrect = !questionClone[index].options[i]
+      .isCorrect;
+    setQuestions(questionClone);
+  };
+
+  const handleDelete = (i) => (e) => {
+    e.preventDefault();
+    let questionsClone = [...questions.slice(0, i), ...questions.slice(i + 1)];
+    setQuestions(questionsClone);
+  };
+
+  return (
+    <>
+      <Box pt="12vh" px={10}>
+        <Text fontSize="lg" py={2}>
+          Module Name
+          <span style={{ color: "red" }}>*</span>
+        </Text>
+        <input
+          type="text"
+          style={{
+            border: "1px solid gray",
+            height: "2.5rem",
+            outline: "none",
+            width: "100%",
+            borderRadius: "5px",
+            paddingLeft: "10px",
+          }}
+          value={moduleName}
+          onChange={(event) => setModuleName(event.target.value)}
+        />
+        {questions.map((question, index) => (
+          <Box key={index} border="1px solid gray" my={2} p={3} rounded="10px">
+            <Flex justifyContent="space-between" py={2}>
+              <Text fontSize="lg">
+                Question<span style={{ color: "red" }}>*</span>
+              </Text>
+
+              <Icon
+                name="delete"
+                onClick={(event) => handleDelete(index)(event)}
+              />
+            </Flex>
+
+            <input
+              type="text"
+              style={{
+                border: "1px solid gray",
+                height: "2.5rem",
+                outline: "none",
+                width: "100%",
+                borderRadius: "5px",
+                paddingLeft: "10px",
+              }}
+              value={question.question}
+              onChange={(event) => handleQuestionText(index)(event)}
+            />
+            <Text fontSize="lg" py={2}>
+              Input Type<span style={{ color: "red" }}>*</span>
+            </Text>
+            <RadioGroup
+              onChange={(event) => handleInputType(index)(event)}
+              value={question.inputType}
+              display="flex"
+            >
+              <Radio value="radio">Radio</Radio>
+              <Radio ml={3} value="checkbox">
+                Checkbox
+              </Radio>
+              <Radio ml={3} value="text">
+                Text
+              </Radio>
+            </RadioGroup>
+            {question.inputType === "text" ? (
+              ""
+            ) : (
+              <Text fontSize="lg" py={2}>
+                Options<span style={{ color: "red" }}>*</span>
+                <Tooltip
+                  hasArrow
+                  label="Create options for your question and select the correct answer"
+                  placement="right"
+                >
+                  <Icon name="info" ml={1} />
+                </Tooltip>
+              </Text>
+            )}
+            {question.inputType === "radio" ? (
+              <RadioGroup
+                onChange={(e) =>
+                  handleRadioOptionInput(index, e.target.value)(e)
+                }
+                defaultValue={0}
+                width="100%"
+              >
+                {question.options.map((option, i) => (
+                  <Radio key={i} value={i + ""} width="100%">
+                    <Input
+                      style={{
+                        border: "1px solid gray",
+                        height: "2.5rem",
+                        outline: "none",
+                        borderRadius: "5px",
+                        paddingLeft: "10px",
+                      }}
+                      width={["65vw", "70vw", "70vw", "91vw"]}
+                      onChange={(event) => handleOptionText(index, i)(event)}
+                      value={option.value}
+                    />
+                  </Radio>
+                ))}
+              </RadioGroup>
+            ) : question.inputType === "checkbox" ? (
+              <Box>
+                {question.options.map((option, i) => (
+                  <CheckboxOption
+                    i={i}
+                    key={i}
+                    option={option}
+                    handleCheckboxOptionInput={handleCheckboxOptionInput}
+                    handleOptionText={handleOptionText}
+                    index={index}
+                  />
+                ))}
+              </Box>
+            ) : (
+              ""
+            )}
+            {question.inputType === "text" ? (
+              ""
+            ) : (
+              <Button
+                variantColor="teal"
+                variant="outline"
+                onClick={(event) => addOptions(index)(event)}
+                mt={2}
+              >
+                Add Option Field
+              </Button>
+            )}
+
+            <QuestionInput
+              label="Explanation"
+              value={question.explanation}
+              index={index}
+              handler={handleExplanationText}
+            />
+          </Box>
+        ))}
+
+        <Button
+          variantColor="teal"
+          variant="outline"
+          onClick={(event) => addQuestion(event)}
+          mt={2}
+        >
+          Add Question
+        </Button>
+      </Box>
+    </>
+  );
+};
+
+export default CreateQuiz;
