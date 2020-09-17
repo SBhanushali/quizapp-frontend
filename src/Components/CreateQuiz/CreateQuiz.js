@@ -93,6 +93,134 @@ const CreateQuiz = () => {
     setQuestions(questionsClone);
   };
 
+  const submitHandler = () => {
+    if (validateQuiz()) {
+      console.log("success");
+    }
+  };
+
+  const validateQuiz = () => {
+    if (moduleName.length < 1) {
+      toast({
+        position: "top-right",
+        title: "Module Name",
+        description: "Module Name cannot be empty",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (questions.length < 1) {
+      toast({
+        position: "top-right",
+        title: "Question",
+        description: "Add at least one question",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+    if (questions[0].question.length < 1) {
+      toast({
+        position: "top-right",
+        title: "Question",
+        description: "Question cannot be empty",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+
+    const validation = () => {
+      for (let i = 0; i < questions.length; i++) {
+        for (var key in questions[i]) {
+          if (key !== "options" && questions[i][key].length < 1) return false;
+        }
+      }
+      return true;
+    };
+    if (!validation()) {
+      toast({
+        position: "top-right",
+        title: "Question",
+        description: "Fill all the fields in question",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return false;
+    }
+
+    const optionValidation = () => {
+      for (let i = 0; i < questions.length; i++) {
+        if (questions[i].options.length < 1) {
+          toast({
+            position: "top-right",
+            title: "Option",
+            description: "Must have at least on option",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+          return false;
+        } else if (questions[i].options.length > 0) {
+          for (let j = 0; j < questions[i].options.length; j++) {
+            if (
+              questions[i].inputType !== "text" &&
+              questions[i].options[j].value.length < 1
+            ) {
+              toast({
+                position: "top-right",
+                title: "Option",
+                description: "Option Field cannot be empty",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+              });
+              return false;
+            }
+          }
+        }
+      }
+      return true;
+    };
+
+    if (!optionValidation()) {
+      return false;
+    }
+
+    const correctOptionValidation = () => {
+      for (let i = 0; i < questions.length; i++) {
+        let noOptionsSelected = true;
+        for (let j = 0; j < questions[i].options.length; j++) {
+          if (questions[i].options[j].isCorrect) {
+            noOptionsSelected = false;
+          }
+        }
+        if (noOptionsSelected) {
+          toast({
+            position: "top-right",
+            title: "Option",
+            description: "Choose correct answer",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+          return false;
+        }
+      }
+      return true;
+    };
+
+    if (!correctOptionValidation()) {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <>
       <Box pt="12vh" px={10}>
@@ -241,6 +369,16 @@ const CreateQuiz = () => {
           Add Question
         </Button>
       </Box>
+      <Flex justifyContent="center">
+        <Button
+          loadingText="Submitting"
+          variantColor="teal"
+          variant="outline"
+          onClick={submitHandler}
+        >
+          Submit
+        </Button>
+      </Flex>
     </>
   );
 };
