@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Text, Button } from "@chakra-ui/core";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -17,9 +18,11 @@ const Navbar = () => {
       px={5}
     >
       <Text fontSize="3xl">QuizApp</Text>
-      <Button variantColor="teal" variant="outline">
-        Create
-      </Button>
+      <Link to="/create">
+        <Button variantColor="teal" variant="outline">
+          Create
+        </Button>
+      </Link>
     </Flex>
   );
 };
