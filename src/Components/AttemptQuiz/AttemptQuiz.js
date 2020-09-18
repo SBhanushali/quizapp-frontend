@@ -10,6 +10,7 @@ const AttemptQuiz = () => {
   const [isLoading, setIsLoading] = useState(true);
   let { moduleName } = useParams();
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       `https://quizbytes.herokuapp.com/api/questions?moduleName=${moduleName}`,
       {
