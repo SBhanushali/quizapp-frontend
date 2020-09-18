@@ -21,7 +21,7 @@ const Navbar = () => {
         <Text fontSize="3xl">QuizApp</Text>
       </Link>
       <Link to="/create">
-        <Button variantColor="teal" variant="outline">
+        <Button borderColor="#161122" variant="outline">
           Create
         </Button>
       </Link>

@@ -390,7 +390,7 @@ const CreateQuiz = () => {
               ""
             ) : (
               <Button
-                variantColor="teal"
+                borderColor="#161122"
                 variant="outline"
                 onClick={(event) => addOptions(index)(event)}
                 mt={2}
@@ -409,7 +409,7 @@ const CreateQuiz = () => {
         ))}
 
         <Button
-          variantColor="teal"
+          borderColor="#161122"
           variant="outline"
           onClick={(event) => addQuestion(event)}
           mt={2}
@@ -421,7 +421,7 @@ const CreateQuiz = () => {
         <Button
           isLoading={isLoading}
           loadingText="Creating"
-          variantColor="teal"
+          borderColor="#161122"
           variant="outline"
           onClick={submitHandler}
           mt={3}

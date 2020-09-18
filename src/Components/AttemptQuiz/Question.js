@@ -131,7 +131,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
         ""
       ) : (
         <Button
-          variantColor="teal"
+          borderColor="#161122"
           variant="outline"
           onClick={() => submitHandler()}
           my={5}
