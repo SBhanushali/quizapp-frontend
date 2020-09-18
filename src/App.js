@@ -1,10 +1,9 @@
 import React from "react";
-import { Grid } from "@chakra-ui/core";
-import ModuleNavigation from "./Components/ModuleNavigation/ModuleNavigation";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import AttemptQuiz from "./Components/AttemptQuiz/AttemptQuiz";
 import CreateQuiz from "./Components/CreateQuiz/CreateQuiz";
+import Home from "./Components/Home/Home";
 
 function App() {
   return (
@@ -12,6 +11,7 @@ function App() {
     <>
       <Navbar />
       <Switch>
+        <Route path="/home" children={<Home />} />
         <Route path="/create" children={<CreateQuiz />} />
         <Route path="/:moduleName" children={<AttemptQuiz />} />
       </Switch>
