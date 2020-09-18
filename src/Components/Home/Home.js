@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Route, NavLink, useParams } from "react-router-dom";
-import { Box, SimpleGrid } from "@chakra-ui/core";
+import { NavLink } from "react-router-dom";
+import { SimpleGrid } from "@chakra-ui/core";
 import Module from "./Module";
 
 const Home = () => {
@@ -13,9 +13,8 @@ const Home = () => {
           setModules(result.data);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   }, []);
-  console.log(modules);
   const moduleMap = modules.map((module) => {
     return (
       <NavLink

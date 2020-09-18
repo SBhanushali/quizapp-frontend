@@ -20,7 +20,7 @@ const AttemptQuiz = () => {
           setIsLoading(false);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   }, [moduleName]);
 
   return (

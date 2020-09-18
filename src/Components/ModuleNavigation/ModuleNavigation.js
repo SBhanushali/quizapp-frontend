@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/core";
-import { Route, NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Module from "./Module";
 
 const ModuleNavigation = () => {
@@ -13,9 +13,8 @@ const ModuleNavigation = () => {
           setModules(result.data);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   }, []);
-  console.log(modules);
   const moduleMap = modules.map((module) => {
     return (
       <NavLink

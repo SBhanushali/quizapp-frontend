@@ -23,7 +23,6 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
       setState(answer);
     } else if (evt.target.type === "checkbox") {
       const checkedAnswer = [...state];
-      console.log(value);
       if (!state.includes(value)) {
         checkedAnswer.push(value);
         setState(checkedAnswer);
@@ -64,7 +63,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
           setExplanation(result.explanation);
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {});
   };
   return (
     <Box px={3} pt={3}>
