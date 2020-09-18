@@ -221,7 +221,7 @@ const CreateQuiz = () => {
   const submitHandler = () => {
     if (validateQuiz()) {
       setLoading(true);
-      fetch("https://quizbytes.herokuapp.com/api/create", {
+      fetch("https://apiquizbytes.herokuapp.com/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,7 +12,7 @@ const AttemptQuiz = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://quizbytes.herokuapp.com/api/questions?moduleName=${moduleName}`,
+      `https://apiquizbytes.herokuapp.com/questions?moduleName=${moduleName}`,
       {
         method: "GET",
       }

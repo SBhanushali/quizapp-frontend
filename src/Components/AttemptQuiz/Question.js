@@ -42,7 +42,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
     if (state.length < 1) {
       return;
     }
-    fetch("https://quizbytes.herokuapp.com/api/check", {
+    fetch("https://apiquizbytes.herokuapp.com/check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

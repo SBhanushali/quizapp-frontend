@@ -6,7 +6,7 @@ import Module from "./Module";
 const ModuleNavigation = () => {
   const [modules, setModules] = useState([]);
   useEffect(() => {
-    fetch("https://quizbytes.herokuapp.com/api/modules", { method: "GET" })
+    fetch("https://apiquizbytes.herokuapp.com/modules", { method: "GET" })
       .then((response) => response.json())
       .then((result) => {
         if (result.data && result.success) {
