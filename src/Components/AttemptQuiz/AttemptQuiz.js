@@ -10,9 +10,12 @@ const AttemptQuiz = () => {
   const [isLoading, setIsLoading] = useState(true);
   let { moduleName } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:8080/api/questions?moduleName=${moduleName}`, {
-      method: "GET",
-    })
+    fetch(
+      `https://quizbytes.herokuapp.com/api/questions?moduleName=${moduleName}`,
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
         if (result.data && result.success) {
