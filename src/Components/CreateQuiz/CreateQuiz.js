@@ -11,6 +11,7 @@ import {
   Tooltip,
   useToast,
 } from "@chakra-ui/core";
+import { useHistory } from "react-router-dom";
 import CheckboxOption from "./CheckboxOption";
 import QuestionInput from "./QuestionInput";
 
@@ -19,6 +20,7 @@ const CreateQuiz = () => {
   const [questions, setQuestions] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const toast = useToast();
+  const history = useHistory();
 
   const addQuestion = (e) => {
     e.preventDefault();
@@ -241,6 +243,7 @@ const CreateQuiz = () => {
               duration: 2000,
               isClosable: true,
             });
+            history.push("/home");
           } else if (!result.success) {
             setLoading(false);
             toast({
