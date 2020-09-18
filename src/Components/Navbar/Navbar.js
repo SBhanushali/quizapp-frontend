@@ -18,7 +18,7 @@ const Navbar = () => {
       px={5}
     >
       <Link to="/home">
-        <Text fontSize="3xl">QuizApp</Text>
+        <Text fontSize="3xl">QuizBytes</Text>
       </Link>
       <Link to="/create">
         <Button borderColor="#161122" variant="outline">
