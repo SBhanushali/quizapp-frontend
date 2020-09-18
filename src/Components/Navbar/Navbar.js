@@ -17,7 +17,9 @@ const Navbar = () => {
       alignItems="center"
       px={5}
     >
-      <Text fontSize="3xl">QuizApp</Text>
+      <Link to="/home">
+        <Text fontSize="3xl">QuizApp</Text>
+      </Link>
       <Link to="/create">
         <Button variantColor="teal" variant="outline">
           Create
