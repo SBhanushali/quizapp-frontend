@@ -1,6 +1,6 @@
-# QuizApp-Frontend
+# QuizBytes-Frontend
 
-[Checkout project](https://quizbytes.herokuapp.com)
+[Checkout QuizBytes](https://quizbytes.herokuapp.com)
 
 ![QuizBytes](./docs/images/QuizBytes_Home.png)
 ![Attempt](./docs/images/QuizBytes_Attempt_Quiz.png)
