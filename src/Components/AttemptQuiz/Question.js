@@ -14,6 +14,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
   const [textAnswer, setTextAnswer] = React.useState("");
   const [explanation, setExplanation] = React.useState("");
   const [answerStatus, setAnswerStatus] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   function handleChange(evt, optionId) {
     const value =
       evt.target.type === "checkbox" ? evt.target.value : evt.target.value;
@@ -42,6 +43,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
     if (state.length < 1) {
       return;
     }
+    setLoading(true);
     fetch("https://apiquizbytes.herokuapp.com/check", {
       method: "POST",
       headers: {
@@ -61,6 +63,7 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
             ? setAnswerStatus("correct")
             : setAnswerStatus("wrong");
           setExplanation(result.explanation);
+          setLoading(false);
         }
       })
       .catch((error) => {});
@@ -132,6 +135,8 @@ const Question = ({ moduleName, questionId, question, type, options }) => {
         <Button
           borderColor="#161122"
           variant="outline"
+          isLoading={loading}
+          loadingText="Submitting"
           onClick={() => submitHandler()}
           my={5}
         >
