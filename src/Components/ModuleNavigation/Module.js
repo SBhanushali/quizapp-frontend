@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/core";
+import classes from "../Home/Module.module.css";
 
 const Module = ({ moduleName }) => {
   return (
@@ -8,13 +9,13 @@ const Module = ({ moduleName }) => {
       w="auto"
       my={5}
       h="60px"
-      boxShadow="0 3px 6px 0 rgba(0, 0, 0, 0.16)"
       display="flex"
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
+      className={classes.Card}
     >
-      <Text>{moduleName}</Text>
+      <Text color="white">{moduleName}</Text>
     </Box>
   );
 };

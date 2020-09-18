@@ -21,7 +21,7 @@ const ModuleNavigation = () => {
       <NavLink
         key={module._id}
         to={`/${module.moduleName}`}
-        activeStyle={{ color: "red", fontWeight: "bold" }}
+        activeStyle={{ fontSize: "1.5rem" }}
       >
         <Module moduleName={module.moduleName} />
       </NavLink>
