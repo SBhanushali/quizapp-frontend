@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import AttemptQuiz from "./Components/AttemptQuiz/AttemptQuiz";
 import CreateQuiz from "./Components/CreateQuiz/CreateQuiz";
@@ -11,6 +11,9 @@ function App() {
     <>
       <Navbar />
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
         <Route path="/home" children={<Home />} />
         <Route path="/create" children={<CreateQuiz />} />
         <Route path="/:moduleName" children={<AttemptQuiz />} />
